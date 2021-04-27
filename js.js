@@ -1,8 +1,6 @@
 (function() {
-    
     let allNotes = [];
     
-
     let btnAdd = document.querySelector(".add");
     let saveBtn = document.querySelector('.save');
     let deleteBtn = document.querySelector('.delete');
@@ -10,11 +8,10 @@
     let divNotes = document.querySelectorAll("div .note");
     let form = document.querySelector(".make-note");
 
-
     class Notes{
         constructor(date, text) {
-            let len = allNotes.length
-            if(len != 0){
+            const len = allNotes.length
+            if (len != 0) {
                 let lastNumber = Number(allNotes[len - 1].id.slice(4));
                 this.id = 'note'+(lastNumber+1);
             }else {
@@ -27,7 +24,7 @@
     }
 
     function getNotesFromStorage(allNotes) {
-        let regNote = new RegExp('note');
+        const regNote = new RegExp('note');
         let elem;
         for (let index in localStorage) {
             if (!localStorage.hasOwnProperty(index) || !index.match(regNote)) {
@@ -42,9 +39,9 @@
     function makeNoteHTML(idNoteVal,text,date){
         const htmlText = `<p class="name-note">${text.slice(0, 10)+"..."}</p>
                     <p class="last-change-time">${date}</p>`;
-        const listNode = document.querySelector(".list-of-notes");
+        const listNode = document.querySelector('.list-of-notes');
         let newDiv = document.createElement('div');
-        newDiv.className = "note";
+        newDiv.className = 'note';
         newDiv.innerHTML = htmlText;
         newDiv.setAttribute('idNot', idNoteVal);
         newDiv.addEventListener('click', openNotes);
@@ -103,7 +100,6 @@
 
 
     function formatDate(date) {
-
         let dd = date.getDate();
         if (dd < 10) dd = '0' + dd;
       
@@ -114,11 +110,10 @@
         if (yy < 10) yy = '0' + yy;
       
         return dd + '.' + mm + '.' + yy;
-      }
+    }
 
     function routing(){
         let hashValue = window.location.hash.slice(1);
-        console.log(hashValue);
         const textFiesld = document.querySelector('.content');
 
         if(hashValue != ''){
@@ -132,18 +127,16 @@
        
     }
 
-    function WorkOnLoad()
-    {
+    function WorkOnLoad() {
         getNotesFromStorage(allNotes); 
 
-         btnAdd.addEventListener('click', makeContent);
-         saveBtn.addEventListener('click', changeNotes);
-         deleteBtn.addEventListener('click', deleteNotes);
+        btnAdd.addEventListener('click', makeContent);
+        saveBtn.addEventListener('click', changeNotes);
+        deleteBtn.addEventListener('click', deleteNotes);
 
         divNotes.forEach(function(userItem) {
             userItem.addEventListener('click', openNotes);
           });
-
     }
 //localStorage.clear();
     document.onchange = routing();
