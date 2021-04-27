@@ -12,15 +12,12 @@
 
 
     class Notes{
-        constructor(date,text){
-            let len = allNotes.length;
-            console.log(len);
+        constructor(date, text) {
+            let len = allNotes.length
             if(len != 0){
-                let lastNumber = Number(allNotes[len-1].id.slice(4));
-                console.log(lastNumber);
+                let lastNumber = Number(allNotes[len - 1].id.slice(4));
                 this.id = 'note'+(lastNumber+1);
-            }
-            else{
+            }else {
                 this.id = 'note'+(len+1);
             }
             
@@ -29,11 +26,10 @@
         }
     }
 
-    function getNotesFromStorage(allNotes){
+    function getNotesFromStorage(allNotes) {
         let regNote = new RegExp('note');
         let elem;
-        console.log(localStorage);
-        for(let index in localStorage){
+        for (let index in localStorage) {
             if (!localStorage.hasOwnProperty(index) || !index.match(regNote)) {
                 continue; 
               }
@@ -41,7 +37,6 @@
               allNotes.push(elem);
               makeNoteHTML(elem.id, elem.text, elem.date)
         }
-        console.log(allNotes);
     }
     
     function makeNoteHTML(idNoteVal,text,date){
@@ -65,7 +60,7 @@
         localStorage.setItem(newNote.id,JSON.stringify(newNote));
     }
 
-   function openNotes(){
+   function openNotes() {
         const getId = this.getAttribute('idNot');
         const textFiesld = document.querySelector('.content');
         
@@ -85,7 +80,7 @@
         const textFiesld = document.querySelector('.content');
         const getId = textFiesld.getAttribute('idNot');
         let currDate = formatDate(new Date());
-        for(let i = 0; i < allNotes.length; i++){
+        for (let i = 0; i < allNotes.length; i++) {
             if(getId == allNotes[i].id){
                 allNotes[i].text = textFiesld.value;
                 allNotes[i].date = currDate;
@@ -100,7 +95,7 @@
         }
     }
 
-    function deleteNotes(){
+    function deleteNotes() {
         const textFiesld = document.querySelector('.content');
         const getId = textFiesld.getAttribute('idNot');
         localStorage.removeItem(getId);
